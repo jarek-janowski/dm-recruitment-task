@@ -1,6 +1,7 @@
 import './VideoListItem.scss'
 
 const VideoListItem = ({
+    video,
     title, 
     thumbnail, 
     views, 
@@ -9,6 +10,7 @@ const VideoListItem = ({
     onSelect, 
     toggleModal,
     removeVideo,
+    addToFavourites,
     display
 }) => {
   
@@ -30,6 +32,7 @@ const VideoListItem = ({
           <p className="list-item__numbers">Likes: {likes}</p>
           <p className="list-item__numbers">Added: {addDate}</p>
           <button className="list-item__remove"onClick={() => removeVideo(id)}>🗑</button>
+          <button className="list-item__fav"onClick={() => addToFavourites(video)}>🖤</button>
         </div>
       </li>
       
