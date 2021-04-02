@@ -4,18 +4,31 @@ import { VideosListContext } from './VideosListContext'
 const AddVideo = () => {
 
 const [videoLink, setVideoLink] = useState('')
-const [videosData, setVideosData] = useContext(VideosListContext)
-console.log(videosData)
+const [, setVideosData] = useContext(VideosListContext)
+
 
 const updateVideoLink = (e) => {
     setVideoLink(e.target.value)
 }
 const apiKey = process.env.REACT_APP_YT_API_KEY
 
+function youTubeGetID(url){
+    var ID = '';
+    url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    if(url[2] !== undefined) {
+      ID = url[2].split(/[^0-9a-z_-]/i);
+      ID = ID[0];
+    }
+    else {
+      ID = url;
+    }
+      return ID;
+  }
+
 
 const handleAddVideo = (e) => {
-    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoLink}&key=${apiKey}&part=snippet,statistics`
     e.preventDefault()
+    const url = `https://www.googleapis.com/youtube/v3/videos?id=${youTubeGetID(videoLink)}&key=${apiKey}&part=snippet,statistics`
     fetch(url)
     .then(res => (res.json()))
     .then(data => setVideosData(prev => [...prev, ...data.items]))
