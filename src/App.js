@@ -11,7 +11,6 @@ const App = () => {
       <div className="app">
         <h1>Video-App</h1>
         <AddVideo />
-        
         <VideosList />
       </div>
     </VideosListProvider>

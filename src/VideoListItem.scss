@@ -1,0 +1,23 @@
+.list-item{
+    display: grid;
+    grid-template-columns: 20% 1fr 15% 10% 15% 5%;
+    column-gap: 1%;
+    padding: 4px 0;
+    &__heading{
+        font-size: 14px;
+        cursor: pointer;
+    }
+    &__img{
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+    }
+    &__numbers{
+        font-size: 12px;
+    }
+    &__remove{
+        background: none;
+        border: none;
+    }
+}
+

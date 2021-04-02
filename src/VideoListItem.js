@@ -1,3 +1,4 @@
+import './VideoListItem.scss'
 
 const VideoListItem = ({
     title, 
@@ -8,6 +9,7 @@ const VideoListItem = ({
     onSelect, 
     toggleModal,
     removeVideo,
+    display
 }) => {
   
     const handleShowModalOnClick = () => {
@@ -20,15 +22,17 @@ const VideoListItem = ({
 
     return(
       <>
-      <li onClick={handleShowModalOnClick}>
-        <h2>{title}</h2>
-        <img src={thumbnail} alt={`${title} thumbnail`}/>
-        <p>Views: {views}</p>
-        <p>Likes: {likes}</p>
-        <p>Added date: {addDate}</p>
-        
+      <li>
+        <div className={display? "list-item" : ""}>
+          <img onClick={handleShowModalOnClick} className="list-item__img" src={thumbnail} alt={`${title} thumbnail`}/>
+          <h2 onClick={handleShowModalOnClick} className="list-item__heading">{title}</h2>
+          <p className="list-item__numbers">Views: {views}</p>
+          <p className="list-item__numbers">Likes: {likes}</p>
+          <p className="list-item__numbers">Added: {addDate}</p>
+          <button className="list-item__remove"onClick={() => removeVideo(id)}>🗑</button>
+        </div>
       </li>
-      <button onClick={() => removeVideo(id)}>remove</button>
+      
       </>
     )
   }
