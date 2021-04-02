@@ -1,5 +1,6 @@
 import {useState, useContext} from 'react'
 import { VideosListContext } from './VideosListContext'
+import addToStorage from './utilities/addToStorage'
 
 const AddVideo = () => {
 
@@ -24,6 +25,8 @@ function youTubeGetIdFromUrl(url){
       return ID;
   }
 
+
+
 const apiKey = process.env.REACT_APP_YT_API_KEY
 
 const handleAddVideo = (e) => {
@@ -31,9 +34,11 @@ const handleAddVideo = (e) => {
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${youTubeGetIdFromUrl(videoLink)}&key=${apiKey}&part=snippet,statistics`
     fetch(url)
     .then(res => (res.json()))
-    .then(data => setVideosData(prev => [...prev, ...data.items]));
+    .then(data => {
+    addToStorage(data, setVideosData)
     setVideoLink('');
-}
+    })
+}  
     return (
         <form onSubmit={handleAddVideo}>
             <input value={videoLink} onChange={updateVideoLink} type="text"/>

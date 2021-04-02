@@ -16,8 +16,8 @@ const VideoListItem = ({
       
     }
  
-
     const addDate = (new Date(Date.now()).toLocaleString().split(',')[0])
+
     return(
       <>
       <li onClick={handleShowModalOnClick}>
