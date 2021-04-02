@@ -6,13 +6,22 @@ import { VideosListContext } from './VideosListContext'
 
 const VideosList = () => {
 
-    const [videosData] = useContext(VideosListContext)
+    const [videosData, setVideosData] = useContext(VideosListContext)
     const [modal, setModal] = useState(false);
     const [videoId, setVideoId] = useState('')
   
     const handleToggleModal = () => {
       setModal(!modal);
-    } 
+    }
+
+    const handleRemoveVideo = (selectedVideo) => {
+      const filtered = videosData.filter(el => {
+        return el.id !== selectedVideo
+      })
+      setVideosData(filtered)
+    }
+    
+
 
     return ( 
       <ul>
@@ -25,6 +34,7 @@ const VideosList = () => {
               id={video.id}
               onSelect={(selectedVideo) => setVideoId(selectedVideo)}
               toggleModal={handleToggleModal}
+              removeVideo={handleRemoveVideo}
             />
           ))}
         <VideoModal 
