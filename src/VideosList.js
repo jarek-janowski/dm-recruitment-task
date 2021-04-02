@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 
 import VideoListItem from './VideoListItem'
+import ExampleVideos from './ExampleVideos'
 import VideoModal from './VideoModal'
 import { VideosListContext } from './VideosListContext'
 
@@ -21,11 +22,9 @@ const VideosList = () => {
       setVideosData(filtered)
     }
     
-
-
     return ( 
       <ul>
-        {videosData.map(video => (
+        {!videosData.length ? <ExampleVideos/> : videosData.map(video => (
             <VideoListItem key={video.id}
               title={video.snippet.title}
               thumbnail={video.snippet.thumbnails.medium.url}

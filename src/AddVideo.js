@@ -25,12 +25,14 @@ function youTubeGetIdFromUrl(url){
   }
 
 const apiKey = process.env.REACT_APP_YT_API_KEY
+
 const handleAddVideo = (e) => {
     e.preventDefault()
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${youTubeGetIdFromUrl(videoLink)}&key=${apiKey}&part=snippet,statistics`
     fetch(url)
     .then(res => (res.json()))
-    .then(data => setVideosData(prev => [...prev, ...data.items]))
+    .then(data => setVideosData(prev => [...prev, ...data.items]));
+    setVideoLink('');
 }
     return (
         <form onSubmit={handleAddVideo}>
