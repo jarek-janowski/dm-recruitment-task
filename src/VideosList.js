@@ -72,9 +72,19 @@ const VideosList = () => {
     setDisplay(!display);
   }
 
-  const setFilter = () => {
+  const handleSetFilter = () => {
     setCurrentFilter(!currentFilter)
+    setCurrentPage(1);
   }
+
+  const handleSortList = () => {
+    if(currentFilter){
+      setVideosData([...videosData].reverse());
+    }else {
+      setFavourites([...favourites].reverse());
+    }
+  }
+
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -84,9 +94,10 @@ const VideosList = () => {
         <div>
           <button onClick={handleCleanAllVideos}>clean</button>
           <button onClick={handleChangeListToTiles}>change display</button>
+          <button onClick={handleSortList}>sort</button>
         </div> 
       }
-      <button onClick={setFilter}>{currentFilter ? "fav" : "all"}</button>
+      <button onClick={handleSetFilter}>{currentFilter ? "fav" : "all"}</button>
       <ul>
         <div className={display ? "" : "tiles"}>
         {videosData === null || !videosData.length 
