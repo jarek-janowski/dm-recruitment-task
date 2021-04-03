@@ -1,6 +1,6 @@
-import VideosList from './VideosList'
-import AddVideo from './AddVideo'
-import { VideosListProvider } from './VideosListContext'
+import VideosList from './VideosList/VideosList'
+import AddVideo from './AddVideo/AddVideo'
+import { VideosListProvider } from '../contexts/VideosListContext'
 import { Container } from 'reactstrap'
 
 import './App.css';

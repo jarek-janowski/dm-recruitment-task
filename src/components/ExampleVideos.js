@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { Button } from 'reactstrap';
-import { VideosListContext } from './VideosListContext'
-import addToStorageFromYt from './utilities/addToStorageFromYt'
+import { VideosListContext } from '../contexts/VideosListContext'
+import addToStorageFromYt from '../utilities/addToStorageFromYt'
 
 
 const ExampleVideos = () => {
   const [, setVideosData] = useContext(VideosListContext)
     const apiKey = process.env.REACT_APP_YT_API_KEY
-
-    
 
     const id= "eDQvN48XQ5k";
     const id2="dGOoeAIz2dU";
@@ -21,7 +19,6 @@ const ExampleVideos = () => {
     const id9="_W0H5XLcNW0";
     const id10="NBlSYkIJbIg";
 
-  
     const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${apiKey}&part=snippet,statistics`
     const apiUrl2 = `https://www.googleapis.com/youtube/v3/videos?id=${id2}&key=${apiKey}&part=snippet,statistics`
     const apiUrl3 = `https://www.googleapis.com/youtube/v3/videos?id=${id3}&key=${apiKey}&part=snippet,statistics`

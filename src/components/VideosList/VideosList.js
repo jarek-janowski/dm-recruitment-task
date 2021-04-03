@@ -1,16 +1,16 @@
 import { useContext, useState, useEffect } from 'react';
 import { Button, ListGroup } from 'reactstrap';
 
-import VideoListItem from './VideoListItem';
-import FavouritesListItem from './FavouritesListItem';
-import ExampleVideos from './ExampleVideos';
-import VideoModal from './VideoModal';
-import Pagination from './Pagination';
-import { VideosListContext } from './VideosListContext';
-import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from './utilities/setStateFromLocaleStorage';
-import addToStorageFavourites from './utilities/addToStorageFavourites';
+import VideoListItem from '../VideoListItem/VideoListItem';
+import FavouritesListItem from '../FavouritesListItem';
+import ExampleVideos from '../ExampleVideos';
+import VideoModal from '../VideoModal';
+import Pagination from '../Pagination';
+import { VideosListContext } from '../../contexts/VideosListContext';
+import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from '../../utilities/setStateFromLocaleStorage';
+import addToStorageFavourites from '../../utilities/addToStorageFavourites';
 
-import './VideoList.scss'
+import './VideosList.scss'
 
 const VideosList = () => {
   const [videosData, setVideosData] = useContext(VideosListContext)
@@ -81,7 +81,7 @@ const VideosList = () => {
       setSort(!sort)
     }
   }
-
+  
   const indexOfLastVideo = currentPage * videosPerPage;
   const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
   const currentVideos = videosData && videosData.slice(indexOfFirstVideo, indexOfLastVideo);
