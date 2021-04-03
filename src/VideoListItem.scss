@@ -11,6 +11,10 @@
         display: flex;
         align-items: center;
         font-size: 14px;
+        &--tiles {
+            font-size: 18px;
+            margin: 16px 0;
+        }
     }
     &__img{
         height: 100%;

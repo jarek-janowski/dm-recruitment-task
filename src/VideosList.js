@@ -128,7 +128,7 @@ const VideosList = () => {
             />
           ))
         }
-        {favourites !== null && !currentFilter? "add something first" :
+        {favourites === null && !currentFilter? "add something first" :
         !currentFilter && currentFavourites.map(fav => (
             <FavouritesListItem 
               key= {fav.id}
