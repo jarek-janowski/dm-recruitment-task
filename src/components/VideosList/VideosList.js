@@ -9,6 +9,7 @@ import Pagination from '../Pagination';
 import { VideosListContext } from '../../contexts/VideosListContext';
 import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from '../../utilities/setStateFromLocaleStorage';
 import addToStorageFavourites from '../../utilities/addToStorageFavourites';
+import isStorageIncludeVideo from '../../utilities/isStorageIncludeVideo'
 
 import './VideosList.scss'
 
@@ -54,9 +55,13 @@ const VideosList = () => {
     })
     setFavouritesFromLocaleStorage(filtered, setFavourites);
   }
+  
 
-  const handleAddToFavourites = (selectedVideo) => {
+  const handleAddToFavourites = (selectedVideo, key= 'favourites') => {
+    const includes = isStorageIncludeVideo(selectedVideo, key)
+    if(!includes){
     addToStorageFavourites(selectedVideo, setFavourites)
+    }
   }
 
   const handleCleanAllVideos = () => {

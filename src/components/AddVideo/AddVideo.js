@@ -19,39 +19,40 @@ const updateVideoLink = (e) => {
 const apiKey = process.env.REACT_APP_YT_API_KEY
 const vimeoApiKey = process.env.REACT_APP_VIMEO_API_KEY
 
+const fetchData = (url, addToStorage, setVideosData) => {
+  fetch(url)
+  .then(res => res.json())
+  .then(data => (
+    addToStorage(data, setVideosData)
+  ))
+}
+
 const handleAddVideo = (e) => {
   e.preventDefault()
   if(videoLink.includes('vimeo')){
     const url = `https://api.vimeo.com/videos?access_token=${vimeoApiKey}&links=${videoLink}`
-    fetch(url)
-    .then(res => (res.json()))
-    .then(data => {
-      addToStorageFromVimeo(data, setVideosData)
-    })
+    fetchData(url, addToStorageFromVimeo, setVideosData)
   } else {
     const url = `https://www.googleapis.com/youtube/v3/videos?id=${youTubeGetIdFromUrl(videoLink)}&key=${apiKey}&part=snippet,statistics`
-    fetch(url)
-    .then(res => (res.json()))
-    .then(data => {
-      addToStorageFromYt(data, setVideosData)
-    })
+    fetchData(url, addToStorageFromYt, setVideosData)
   }
   setVideoLink('');
 } 
-    return (
-        <Form className="form" onSubmit={handleAddVideo}>
-          <FormGroup>
-            <Label>Link: </Label>
-            <Input 
-              value={videoLink} 
-              onChange={updateVideoLink} 
-              type="text"
-              placeholder="ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-              />
-            <Button color="primary" block style={{width: '50%', margin: '32px auto'}}>Add video</Button>
-          </FormGroup>
-        </Form> 
-     );
+
+  return (
+      <Form className="form" onSubmit={handleAddVideo}>
+        <FormGroup>
+          <Label>Link: </Label>
+          <Input 
+            value={videoLink} 
+            onChange={updateVideoLink} 
+            type="text"
+            placeholder="ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            />
+          <Button color="primary" block style={{width: '50%', margin: '32px auto'}}>Add video</Button>
+        </FormGroup>
+      </Form> 
+    );
 }
  
 export default AddVideo;
