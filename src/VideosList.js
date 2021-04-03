@@ -7,7 +7,7 @@ import VideoModal from './VideoModal';
 import Pagination from './Pagination';
 import { VideosListContext } from './VideosListContext';
 import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from './utilities/setStateFromLocaleStorage';
-import addToFavourites from './utilities/addToFavourites';
+import addToStorageFavourites from './utilities/addToStorageFavourites';
 
 import './VideoList.scss'
 
@@ -22,12 +22,6 @@ const VideosList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [videosPerPage] = useState(6);
   
-  //
-  const indexOfLastVideo = currentPage * videosPerPage;
-  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
-  const currentVideos = videosData.slice(indexOfFirstVideo, indexOfLastVideo)
-  const currentFavourites = favourites.slice(indexOfFirstVideo, indexOfLastVideo)
-
   useEffect(() => {
     const videosDataStorage = localStorage.getItem('videosData');
     const favouritesStorage = localStorage.getItem('favourites');
@@ -61,7 +55,7 @@ const VideosList = () => {
   }
 
   const handleAddToFavourites = (selectedVideo) => {
-    addToFavourites(selectedVideo, setFavourites)
+    addToStorageFavourites(selectedVideo, setFavourites)
   }
 
   const handleCleanAllVideos = () => {
@@ -85,6 +79,10 @@ const VideosList = () => {
     }
   }
 
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = videosData && videosData.slice(indexOfFirstVideo, indexOfLastVideo);
+  const currentFavourites = favourites && favourites.slice(indexOfFirstVideo, indexOfLastVideo);
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -116,6 +114,7 @@ const VideosList = () => {
               removeVideo={handleRemoveVideo}
               addToFavourites={handleAddToFavourites}
               display={display}
+              date={video.date}
             />
           ))
         }
@@ -133,6 +132,7 @@ const VideosList = () => {
               removeVideo={handleRemoveVideoFromFavourites}
               addToFavourites={handleAddToFavourites}
               display={display}
+              date={fav.date}
             />
           ))
         } 
@@ -140,9 +140,9 @@ const VideosList = () => {
     </ul>
     <Pagination 
       videosPerPage={videosPerPage} 
-      totalVideos={videosData.length}
+      totalVideos={videosData && videosData.length}
       paginate={paginate}
-      totalFavourites={favourites.length}
+      totalFavourites={favourites && favourites.length}
       currentFilter={currentFilter}
     />
     <VideoModal 

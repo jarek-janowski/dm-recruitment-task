@@ -11,7 +11,8 @@ const VideoListItem = ({
     toggleModal,
     removeVideo,
     addToFavourites,
-    display
+    display,
+    date
 }) => {
   
     const handleShowModalOnClick = () => {
@@ -19,9 +20,7 @@ const VideoListItem = ({
         toggleModal()
       
     }
- 
-    const addDate = (new Date(Date.now()).toLocaleString().split(',')[0])
-
+    
     return(
       <>
       <li>
@@ -30,7 +29,7 @@ const VideoListItem = ({
           <h2  className="list-item__heading">{title}</h2>
           <p className="list-item__numbers">Views: {views}</p>
           <p className="list-item__numbers">Likes: {likes}</p>
-          <p className="list-item__numbers">Added: {addDate}</p>
+          <p className="list-item__numbers">Added: {date}</p>
           <button className="list-item__play"onClick={handleShowModalOnClick}>▶</button>
           <button className="list-item__remove" onClick={() => removeVideo(id)}>🗑</button>
           <button className="list-item__fav" onClick={() => addToFavourites(video)}>🖤</button>

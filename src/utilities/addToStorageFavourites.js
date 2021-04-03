@@ -1,6 +1,10 @@
-const addToFavourites = (selectedVideo, setFavourites) => {
+const addToStorageFavourites = (selectedVideo, setFavourites) => {
     const arr = JSON.parse(localStorage.getItem('favourites')) || [];
-    arr.push({    
+    
+    const date = (new Date(Date.now()).toLocaleString().split(',')[0])
+    
+    arr.push({
+        date: date,    
         id: selectedVideo.id,
         snippet: {
         title: selectedVideo.snippet.title,
@@ -19,4 +23,4 @@ const addToFavourites = (selectedVideo, setFavourites) => {
     setFavourites(JSON.parse(retrievedObject))
     }
  
-export default addToFavourites;
+export default addToStorageFavourites;

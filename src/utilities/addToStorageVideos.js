@@ -1,6 +1,10 @@
-const addToStorage = (data, setVideosData) => {
+const addToStorageVideos = (data, setVideosData) => {
   const arr = JSON.parse(localStorage.getItem('videosData')) || [];
-  arr.push({    
+
+  const date = (new Date(Date.now()).toLocaleString().split(',')[0])
+
+  arr.push({
+    date: date,    
     id: data.items[0].id,
     snippet: {
       title: data.items[0].snippet.title,
@@ -19,4 +23,4 @@ const addToStorage = (data, setVideosData) => {
   setVideosData(JSON.parse(retrievedObject))
 };
 
-export default addToStorage
+export default addToStorageVideos

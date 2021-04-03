@@ -7,7 +7,8 @@ const FavouritesListItem = ({
     onSelect, 
     toggleModal,
     removeVideo,
-    display
+    display,
+    date
 }) => {
 
     const handleShowModalOnClick = () => {
@@ -15,7 +16,6 @@ const FavouritesListItem = ({
         toggleModal()
       
     }
-    const addDate = (new Date(Date.now()).toLocaleString().split(',')[0])
     return ( 
     <li>
         <div className={display? "list-item" : ""}>
@@ -23,7 +23,7 @@ const FavouritesListItem = ({
             <h2 onClick={handleShowModalOnClick} className="list-item__heading">{title}</h2>
             <p className="list-item__numbers">Views: {views}</p>
             <p className="list-item__numbers">Likes: {likes}</p>
-            <p className="list-item__numbers">Added: {addDate}</p>
+            <p className="list-item__numbers">Added: {date}</p>
             <button className="list-item__remove" onClick={() => removeVideo(id)}>🗑</button>
         </div>
     </li>

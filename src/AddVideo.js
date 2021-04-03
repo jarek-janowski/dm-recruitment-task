@@ -1,6 +1,6 @@
 import {useState, useContext} from 'react'
 import { VideosListContext } from './VideosListContext'
-import addToStorage from './utilities/addToStorage'
+import addToStorageVideos from './utilities/addToStorageVideos'
 
 const AddVideo = () => {
 
@@ -35,7 +35,7 @@ const handleAddVideo = (e) => {
     fetch(url)
     .then(res => (res.json()))
     .then(data => {
-    addToStorage(data, setVideosData)
+    addToStorageVideos(data, setVideosData)
     setVideoLink('');
     })
 }  

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { VideosListContext } from './VideosListContext'
-import addToStorage from './utilities/addToStorage'
+import addToStorageVideos from './utilities/addToStorageVideos'
 
 
 const ExampleVideos = () => {
@@ -37,7 +37,7 @@ const ExampleVideos = () => {
       Promise.all(apiUrls.map(url =>
         fetch(url).then(res => res.json())
         .then(data=> {
-            addToStorage(data, setVideosData)
+            addToStorageVideos(data, setVideosData)
         })
         ))
     }
