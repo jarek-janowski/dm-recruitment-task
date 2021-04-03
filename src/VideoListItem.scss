@@ -1,6 +1,6 @@
 .list-item{
     display: grid;
-    grid-template-columns: 20% 1fr 15% 10% 15% 5% 5% 5%;
+    grid-template-columns: 20% 25% 15% 10% 15% 1fr 1fr 1fr;
     column-gap: 1%;
     padding: 4px 0;
     &__fav{

@@ -1,6 +1,5 @@
 ul{
     list-style: none;
-    padding: 0 16px;
 }
 
 .tiles{
@@ -13,5 +12,15 @@ ul{
     grid-template-columns: 1fr 1fr;}
     @media(min-width: 1152px){
         grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.buttons-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 32px;
+    & > button {
+        margin: 0 16px;
     }
 }

@@ -1,4 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
+import { Button, ListGroup } from 'reactstrap';
 
 import VideoListItem from './VideoListItem';
 import FavouritesListItem from './FavouritesListItem';
@@ -12,7 +13,6 @@ import addToStorageFavourites from './utilities/addToStorageFavourites';
 import './VideoList.scss'
 
 const VideosList = () => {
-
   const [videosData, setVideosData] = useContext(VideosListContext)
   const [modal, setModal] = useState(false);
   const [videoId, setVideoId] = useState('');
@@ -20,7 +20,8 @@ const VideosList = () => {
   const [favourites, setFavourites] = useState([])
   const [currentFilter, setCurrentFilter] = useState(true)
   const [currentPage, setCurrentPage] = useState(1);
-  const [videosPerPage] = useState(6);
+  const [videosPerPage] = useState(8);
+  const [sort, setSort] = useState(false);
   
   useEffect(() => {
     const videosDataStorage = localStorage.getItem('videosData');
@@ -74,8 +75,10 @@ const VideosList = () => {
   const handleSortList = () => {
     if(currentFilter){
       setVideosData([...videosData].reverse());
+      setSort(!sort)
     }else {
       setFavourites([...favourites].reverse());
+      setSort(!sort)
     }
   }
 
@@ -86,19 +89,26 @@ const VideosList = () => {
   //Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
+
+  const arrowDown = <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
+  const arrowUp = <i className="fa fa-long-arrow-up" aria-hidden="true"></i>
+  const list = <i className="fa fa-list" aria-hidden="true"></i>
+  const tiles = <i className="fa fa-windows" aria-hidden="true"></i>
   return ( 
     <>
-      {videosData === null || !videosData.length ? "" :
-        <div>
-          <button onClick={handleCleanAllVideos}>clean</button>
-          <button onClick={handleChangeListToTiles}>change display</button>
-          <button onClick={handleSortList}>sort</button>
-        </div> 
-      }
-      <button onClick={handleSetFilter}>{currentFilter ? "fav" : "all"}</button>
-      <ul>
+      <div className="buttons-container">
+        {videosData === null || !videosData.length ? "" :
+            <>
+            <Button color="danger" onClick={handleCleanAllVideos}>Remove All</Button>
+            <Button onClick={handleChangeListToTiles}>change display to: {display ? tiles : list}</Button>
+            <Button onClick={handleSortList}>Sort: {sort ? arrowUp : arrowDown}</Button>
+            </>
+        }
+        <Button onClick={handleSetFilter}>{currentFilter ? "Favourites" : "All videos"}</Button>
+      </div> 
+      <ListGroup>
         <div className={display ? "" : "tiles"}>
-        {videosData === null || !videosData.length 
+        {(videosData === null || !videosData.length) && currentFilter
         ? <ExampleVideos/> 
         : currentFilter && currentVideos.map(video => (
             <VideoListItem 
@@ -118,7 +128,8 @@ const VideosList = () => {
             />
           ))
         }
-        {!currentFilter && currentFavourites.map(fav => (
+        {favourites !== null && !currentFilter? "add something first" :
+        !currentFilter && currentFavourites.map(fav => (
             <FavouritesListItem 
               key= {fav.id}
               fav={fav}
@@ -133,17 +144,20 @@ const VideosList = () => {
               addToFavourites={handleAddToFavourites}
               display={display}
               date={fav.date}
+              favourites={favourites}
             />
           ))
+          
         } 
         </div> 
-    </ul>
+    </ListGroup>
     <Pagination 
       videosPerPage={videosPerPage} 
       totalVideos={videosData && videosData.length}
       paginate={paginate}
       totalFavourites={favourites && favourites.length}
       currentFilter={currentFilter}
+      currentPage={currentPage}
     />
     <VideoModal 
       modal={modal}

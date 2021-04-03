@@ -1,9 +1,12 @@
+import { PaginationItem } from 'reactstrap';
+
 const Pagination = ({
     videosPerPage, 
     totalVideos, 
     paginate, 
     totalFavourites,
-    currentFilter
+    currentFilter,
+    currentPage
 }) => {
 
     const pageNumbers = [];
@@ -14,14 +17,14 @@ const Pagination = ({
     }
 
     return ( 
-        <nav>
+        <nav style={{marginTop: 32}}>
             <ul className="pagination">
                 {pageNumbers.map(number => (
-                    <li key={number} className="page-item"> 
+                    <PaginationItem active={currentPage === number} key={number} className="page-item"> 
                         <button onClick={() => paginate(number)} className="page-link">
                             {number}
                         </button>
-                    </li>
+                    </PaginationItem>
                 ))}
             </ul>
         </nav> 

@@ -8,7 +8,7 @@ const FavouritesListItem = ({
     toggleModal,
     removeVideo,
     display,
-    date
+    date,
 }) => {
 
     const handleShowModalOnClick = () => {
@@ -16,7 +16,7 @@ const FavouritesListItem = ({
         toggleModal()
       
     }
-    return ( 
+    return (  
     <li>
         <div className={display? "list-item" : ""}>
             <img onClick={handleShowModalOnClick} className="list-item__img" src={thumbnail} alt={`${title} thumbnail`}/>

@@ -1,10 +1,11 @@
 import { useContext } from 'react';
+import { Button } from 'reactstrap';
 import { VideosListContext } from './VideosListContext'
 import addToStorageVideos from './utilities/addToStorageVideos'
 
 
 const ExampleVideos = () => {
-    const [, setVideosData] = useContext(VideosListContext)
+  const [, setVideosData] = useContext(VideosListContext)
     const apiKey = process.env.REACT_APP_YT_API_KEY
 
     
@@ -42,7 +43,10 @@ const ExampleVideos = () => {
         ))
     }
     return(
-    <button onClick={handleAddExampleVideosOnClick}>Add example videos</button>
+    <div style={{marginTop: "50%", display: "flex", flexDirection: "column", justifyContent: "center"}}>
+      <p>There is no single video 😕 Add something or...</p>
+      <Button color="info" onClick={handleAddExampleVideosOnClick}>Load example videos</Button>
+    </div>
     )
   }
 

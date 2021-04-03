@@ -1,12 +1,14 @@
-import {useState, useContext} from 'react'
+import { useState, useContext } from 'react'
 import { VideosListContext } from './VideosListContext'
 import addToStorageVideos from './utilities/addToStorageVideos'
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+
+import './AddVideo.scss';
 
 const AddVideo = () => {
 
 const [videoLink, setVideoLink] = useState('')
 const [, setVideosData] = useContext(VideosListContext)
-
 
 const updateVideoLink = (e) => {
     setVideoLink(e.target.value)
@@ -35,15 +37,23 @@ const handleAddVideo = (e) => {
     fetch(url)
     .then(res => (res.json()))
     .then(data => {
-    addToStorageVideos(data, setVideosData)
-    setVideoLink('');
+      addToStorageVideos(data, setVideosData)
+      setVideoLink('');
     })
 }  
     return (
-        <form onSubmit={handleAddVideo}>
-            <input value={videoLink} onChange={updateVideoLink} type="text"/>
-            <button>add</button>
-        </form> 
+        <Form className="form" onSubmit={handleAddVideo}>
+          <FormGroup>
+            <Label>Link: </Label>
+            <Input 
+              value={videoLink} 
+              onChange={updateVideoLink} 
+              type="text"
+              placeholder="ex: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              />
+            <Button color="primary" block style={{width: '50%', margin: '8px auto'}}>Add video</Button>
+          </FormGroup>
+        </Form> 
      );
 }
  
