@@ -1,12 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
 
-import VideoListItem from './VideoListItem'
-import FavouritesListItem from './FavouritesListItem'
-import ExampleVideos from './ExampleVideos'
-import VideoModal from './VideoModal'
-import { VideosListContext } from './VideosListContext'
-import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from './utilities/setStateFromLocaleStorage'
-import addToFavourites from './utilities/addToFavourites'
+import VideoListItem from './VideoListItem';
+import FavouritesListItem from './FavouritesListItem';
+import ExampleVideos from './ExampleVideos';
+import VideoModal from './VideoModal';
+import Pagination from './Pagination';
+import { VideosListContext } from './VideosListContext';
+import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from './utilities/setStateFromLocaleStorage';
+import addToFavourites from './utilities/addToFavourites';
 
 import './VideoList.scss'
 
@@ -18,8 +19,14 @@ const VideosList = () => {
   const [display, setDisplay] = useState(true);
   const [favourites, setFavourites] = useState([])
   const [currentFilter, setCurrentFilter] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [videosPerPage] = useState(6);
   
-  console.log(favourites)
+  //
+  const indexOfLastVideo = currentPage * videosPerPage;
+  const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+  const currentVideos = videosData.slice(indexOfFirstVideo, indexOfLastVideo)
+  const currentFavourites = favourites.slice(indexOfFirstVideo, indexOfLastVideo)
 
   useEffect(() => {
     const videosDataStorage = localStorage.getItem('videosData');
@@ -68,61 +75,70 @@ const VideosList = () => {
   const setFilter = () => {
     setCurrentFilter(!currentFilter)
   }
+  //Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return ( 
     <>
-    {videosData === null || !videosData.length ? "" :
-      <div>
-        <button onClick={handleCleanAllVideos}>clean</button>
-        <button onClick={handleChangeListToTiles}>change display</button>
-      </div> 
-    }
-    <button onClick={setFilter}>fav</button>
-    <ul>
-      <div className={display ? "" : "tiles"}>
-      {videosData === null || !videosData.length 
-      ? <ExampleVideos/> 
-      : currentFilter && videosData.map(video => (
-          <VideoListItem 
-            key={video.id}
-            video={video}
-            title={video.snippet.title}
-            thumbnail={video.snippet.thumbnails.medium.url}
-            views={video.statistics.viewCount}
-            likes={video.statistics.likeCount}
-            id={video.id}
-            onSelect={(selectedVideo) => setVideoId(selectedVideo)}
-            toggleModal={handleToggleModal}
-            removeVideo={handleRemoveVideo}
-            addToFavourites={handleAddToFavourites}
-            display={display}
-          />
-        ))
+      {videosData === null || !videosData.length ? "" :
+        <div>
+          <button onClick={handleCleanAllVideos}>clean</button>
+          <button onClick={handleChangeListToTiles}>change display</button>
+        </div> 
       }
-      {!currentFilter && favourites.map(fav => (
-          <FavouritesListItem 
-            key= {fav.id}
-            fav={fav}
-            title={fav.snippet.title}
-            thumbnail={fav.snippet.thumbnails.medium.url}
-            views={fav.statistics.viewCount}
-            likes={fav.statistics.likeCount}
-            id={fav.id}
-            onSelect={(selectedVideo) => setVideoId(selectedVideo)}
-            toggleModal={handleToggleModal}
-            removeVideo={handleRemoveVideoFromFavourites}
-            addToFavourites={handleAddToFavourites}
-            display={display}
-          />
-        ))
-      } 
-      </div> 
-  </ul>
-  <VideoModal 
-  modal={modal}
-  toggleModal={handleToggleModal}
-  videoId={videoId}
-  />
+      <button onClick={setFilter}>{currentFilter ? "fav" : "all"}</button>
+      <ul>
+        <div className={display ? "" : "tiles"}>
+        {videosData === null || !videosData.length 
+        ? <ExampleVideos/> 
+        : currentFilter && currentVideos.map(video => (
+            <VideoListItem 
+              key={video.id}
+              video={video}
+              title={video.snippet.title}
+              thumbnail={video.snippet.thumbnails.medium.url}
+              views={video.statistics.viewCount}
+              likes={video.statistics.likeCount}
+              id={video.id}
+              onSelect={(selectedVideo) => setVideoId(selectedVideo)}
+              toggleModal={handleToggleModal}
+              removeVideo={handleRemoveVideo}
+              addToFavourites={handleAddToFavourites}
+              display={display}
+            />
+          ))
+        }
+        {!currentFilter && currentFavourites.map(fav => (
+            <FavouritesListItem 
+              key= {fav.id}
+              fav={fav}
+              title={fav.snippet.title}
+              thumbnail={fav.snippet.thumbnails.medium.url}
+              views={fav.statistics.viewCount}
+              likes={fav.statistics.likeCount}
+              id={fav.id}
+              onSelect={(selectedVideo) => setVideoId(selectedVideo)}
+              toggleModal={handleToggleModal}
+              removeVideo={handleRemoveVideoFromFavourites}
+              addToFavourites={handleAddToFavourites}
+              display={display}
+            />
+          ))
+        } 
+        </div> 
+    </ul>
+    <Pagination 
+      videosPerPage={videosPerPage} 
+      totalVideos={videosData.length}
+      paginate={paginate}
+      totalFavourites={favourites.length}
+      currentFilter={currentFilter}
+    />
+    <VideoModal 
+      modal={modal}
+      toggleModal={handleToggleModal}
+      videoId={videoId}
+    />
   </> 
     );
   }
