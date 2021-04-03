@@ -31,8 +31,8 @@ const VideoListItem = ({
           <p className="list-item__numbers">Views: {views}</p>
           <p className="list-item__numbers">Likes: {likes}</p>
           <p className="list-item__numbers">Added: {addDate}</p>
-          <button className="list-item__remove"onClick={() => removeVideo(id)}>🗑</button>
-          <button className="list-item__fav"onClick={() => addToFavourites(video)}>🖤</button>
+          <button className="list-item__remove" onClick={() => removeVideo(id)}>🗑</button>
+          <button className="list-item__fav" onClick={() => addToFavourites(video)}>🖤</button>
         </div>
       </li>
       
