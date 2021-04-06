@@ -10,7 +10,7 @@ import './AddVideo.scss';
 const AddVideo = () => {
 
 const [videoLink, setVideoLink] = useState('')
-const [, setVideosData] = useContext(VideosListContext)
+const [videosData, setVideosData] = useContext(VideosListContext)
 
 const updateVideoLink = (e) => {
     setVideoLink(e.target.value)
@@ -19,6 +19,11 @@ const updateVideoLink = (e) => {
 const apiKey = process.env.REACT_APP_YT_API_KEY
 const vimeoApiKey = process.env.REACT_APP_VIMEO_API_KEY
 
+
+const mapVideosData = videosData!== null && videosData.map(video =>(
+  video.id
+))
+
 const fetchData = (url, addToStorage, setVideosData) => {
   fetch(url)
   .then(res => {
@@ -26,10 +31,17 @@ const fetchData = (url, addToStorage, setVideosData) => {
       res.json()
       .then(data => {
         if(data.data !== undefined){
-          data.data.length ? addToStorage(data, setVideosData) : alert('wrong link')
+          
+          const includesVimeo = mapVideosData.includes(data.data[0].uri)
+          !includesVimeo 
+          ? (data.data.length ? addToStorage(data, setVideosData) : alert('wrong link')) 
+          : alert('Video is already in library')
         }
         if(data.items !== undefined){
-          data.items.length ? addToStorage(data, setVideosData) : alert('wrong link')
+          const includesYt =  mapVideosData.includes(data.items[0].id)
+          !includesYt
+          ? (data.items.length ? addToStorage(data, setVideosData) : alert('wrong link'))
+          : alert('Video is already in library')
         }
       })
     }
