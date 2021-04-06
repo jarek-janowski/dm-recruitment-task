@@ -19,12 +19,21 @@ const updateVideoLink = (e) => {
 const apiKey = process.env.REACT_APP_YT_API_KEY
 const vimeoApiKey = process.env.REACT_APP_VIMEO_API_KEY
 
-const fetchData = (url, addToStorage, setVideosData) => {
+const fetchData = (url, addToStorage, setVideosData, condition) => {
   fetch(url)
-  .then(res => res.json())
-  .then(data => (
-    addToStorage(data, setVideosData)
-  ))
+  .then(res => {
+    if(res.ok){
+      res.json()
+      .then(data => {
+        if(data.data !== undefined){
+          data.data.length ? addToStorage(data, setVideosData) : alert('wrong link')
+        }
+        if(data.items !== undefined){
+          data.items.length ? addToStorage(data, setVideosData) : alert('wrong link')
+        }
+      })
+    }
+  })
 }
 
 const handleAddVideo = (e) => {
