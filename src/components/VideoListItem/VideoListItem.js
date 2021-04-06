@@ -12,7 +12,8 @@ const VideoListItem = ({
     removeVideo,
     addToFavourites,
     display,
-    date
+    date,
+    currentFilter
 }) => {
   
     const handleShowModalOnClick = () => {
@@ -32,7 +33,7 @@ const VideoListItem = ({
           <p className="list-item__numbers">Added: {date}</p>
           <button className="list-item__play"onClick={handleShowModalOnClick}>▶</button>
           <button className="list-item__remove" onClick={() => removeVideo(id)}>🗑</button>
-          <button className="list-item__fav" onClick={() => addToFavourites(video)}>❤</button>
+          {currentFilter && <button className="list-item__fav" onClick={() => addToFavourites(video)}>❤</button>}
         </div>
       </li>
       

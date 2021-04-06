@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from 'react';
 import { Button, ListGroup } from 'reactstrap';
 
 import VideoListItem from '../VideoListItem/VideoListItem';
-import FavouritesListItem from '../FavouritesListItem';
 import ExampleVideos from '../ExampleVideos';
 import VideoModal from '../VideoModal';
 import Pagination from '../Pagination';
@@ -115,7 +114,8 @@ const VideosList = () => {
         <div className={display ? "" : "tiles"}>
         {(videosData === null || !videosData.length) && currentFilter
         ? <ExampleVideos/> 
-        : currentFilter && currentVideos.map(video => (
+        : (currentFilter ?
+          currentVideos.map(video => (
             <VideoListItem 
               key={video.id}
               video={video}
@@ -130,14 +130,12 @@ const VideosList = () => {
               addToFavourites={handleAddToFavourites}
               display={display}
               date={video.date}
+              currentFilter={currentFilter}
             />
           ))
-        }
-        {favourites === null && !currentFilter? "add something first" :
-        !currentFilter && currentFavourites.map(fav => (
-            <FavouritesListItem 
-              key= {fav.id}
-              fav={fav}
+          : currentFavourites.map(fav=> (
+            <VideoListItem
+              key={fav.id}
               title={fav.snippet.title}
               thumbnail={fav.snippet.thumbnails.medium.url}
               views={fav.statistics.viewCount}
@@ -146,14 +144,13 @@ const VideosList = () => {
               onSelect={(selectedVideo) => setVideoId(selectedVideo)}
               toggleModal={handleToggleModal}
               removeVideo={handleRemoveVideoFromFavourites}
-              addToFavourites={handleAddToFavourites}
               display={display}
               date={fav.date}
-              favourites={favourites}
+              currentFilter={currentFilter}
             />
           ))
-          
-        } 
+          )
+        }
         </div> 
     </ListGroup>
     <Pagination 
