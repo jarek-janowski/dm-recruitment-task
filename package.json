@@ -1,5 +1,6 @@
 {
   "name": "dm-recruitment-task",
+  "description": "Video app recruitment-task for Digimonkeys",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -21,6 +22,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jarek-janowski/dm-recruitment-task.git"
+  },
+  "author": "Jarek Janowski",
+  "license": "ISC",
+  "homepage": "https://github.com/jarek-janowski/dm-recruitment-task",
   "eslintConfig": {
     "extends": [
       "react-app",

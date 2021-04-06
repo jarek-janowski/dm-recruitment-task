@@ -12,7 +12,15 @@ them whatever you want 😎
 - sass/scss
 - Youtube & Vimeo API
 
+## HOW TO USE
+
+1. Clone repository
+2. Run `npm install`
+3. Create .env file & paste your Vimeo & YouTube API keys
+
 ## Available scripts
+
+`npm install` - install the dependencies in the local node_modules folder 
 
 `npm start` - runs development mode
 
