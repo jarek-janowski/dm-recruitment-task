@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from 'react';
 import { Button, ListGroup } from 'reactstrap';
 
 import VideoListItem from '../VideoListItem/VideoListItem';
-import ExampleVideos from '../ExampleVideos';
-import VideoModal from '../VideoModal';
-import Pagination from '../Pagination';
+import ExampleVideos from '../ExampleVideos/ExampleVideos';
+import VideoModal from '../VideoModal/VideoModal';
+import Pagination from '../Pagination/Pagination';
 import { VideosListContext } from '../../contexts/VideosListContext';
 import { setVideosDataFromLocaleStorage,  setFavouritesFromLocaleStorage } from '../../utilities/setStateFromLocaleStorage';
 import addToStorageFavourites from '../../utilities/addToStorageFavourites';

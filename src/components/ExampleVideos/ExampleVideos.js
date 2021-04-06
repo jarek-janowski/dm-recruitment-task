@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Button } from 'reactstrap';
-import { VideosListContext } from '../contexts/VideosListContext'
-import addToStorageFromYt from '../utilities/addToStorageFromYt'
+import { VideosListContext } from '../../contexts/VideosListContext'
+import addToStorageFromYt from '../../utilities/addToStorageFromYt'
 
 
 const ExampleVideos = () => {

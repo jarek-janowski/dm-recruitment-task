@@ -19,7 +19,7 @@ const updateVideoLink = (e) => {
 const apiKey = process.env.REACT_APP_YT_API_KEY
 const vimeoApiKey = process.env.REACT_APP_VIMEO_API_KEY
 
-const fetchData = (url, addToStorage, setVideosData, condition) => {
+const fetchData = (url, addToStorage, setVideosData) => {
   fetch(url)
   .then(res => {
     if(res.ok){
