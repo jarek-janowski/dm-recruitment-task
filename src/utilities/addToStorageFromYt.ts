@@ -1,5 +1,5 @@
-const addToStorageFromYt = (data, setVideosData) => {
-  const arr = JSON.parse(localStorage.getItem('videosData')) || [];
+const addToStorageFromYt = (data: any, setVideosData: any) => {
+  const arr = JSON.parse(localStorage.getItem('videosData')!) || [];
 
   const date = (new Date(Date.now()).toLocaleString().split(',')[0])
 
@@ -19,7 +19,7 @@ const addToStorageFromYt = (data, setVideosData) => {
     },
   })
   localStorage.setItem('videosData', JSON.stringify(arr))
-  const retrievedObject = localStorage.getItem('videosData')
+  const retrievedObject = localStorage.getItem('videosData')!
   setVideosData(JSON.parse(retrievedObject))
 };
 

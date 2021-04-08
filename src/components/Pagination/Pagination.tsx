@@ -1,6 +1,15 @@
 import { PaginationItem } from 'reactstrap';
 
-const Pagination = ({
+interface Props {
+    videosPerPage: number,
+    totalVideos: number, 
+    paginate: (number: number) => void,
+    totalFavourites: number
+    currentFilter: boolean,
+    currentPage: number
+  }
+
+const Pagination: React.FC<Props> = ({
     videosPerPage, 
     totalVideos, 
     paginate, 

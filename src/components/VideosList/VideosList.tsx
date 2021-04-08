@@ -24,8 +24,8 @@ const VideosList = () => {
   const [sort, setSort] = useState(false);
   
   useEffect(() => {
-    const videosDataStorage = localStorage.getItem('videosData');
-    const favouritesStorage = localStorage.getItem('favourites');
+    const videosDataStorage = localStorage.getItem('videosData')!;
+    const favouritesStorage = localStorage.getItem('favourites')!;
     if(videosDataStorage===null){
       localStorage.setItem('videosData', JSON.stringify([]));
     }
@@ -41,22 +41,22 @@ const VideosList = () => {
     setModal(!modal);
   }
 
-  const handleRemoveVideo = (selectedVideo) => {
-    const filtered = videosData.filter(video => {
+  const handleRemoveVideo = (selectedVideo: any) => {
+    const filtered = videosData.filter((video: any) => {
       return video.id !== selectedVideo
     })
     setVideosDataFromLocaleStorage(filtered, setVideosData);
   }
 
-  const handleRemoveVideoFromFavourites = (selectedVideo) => {
-    const filtered = favourites.filter(fav => {
+  const handleRemoveVideoFromFavourites = (selectedVideo: any) => {
+    const filtered = favourites.filter((fav: any) => {
       return fav.id !== selectedVideo
     })
     setFavouritesFromLocaleStorage(filtered, setFavourites);
   }
   
 
-  const handleAddToFavourites = (selectedVideo, key= 'favourites') => {
+  const handleAddToFavourites = (selectedVideo: any, key= 'favourites') => {
     const includes = isStorageIncludeVideo(selectedVideo, key)
     if(!includes){
     addToStorageFavourites(selectedVideo, setFavourites)
@@ -91,7 +91,7 @@ const VideosList = () => {
   const currentVideos = videosData && videosData.slice(indexOfFirstVideo, indexOfLastVideo);
   const currentFavourites = favourites && favourites.slice(indexOfFirstVideo, indexOfLastVideo);
   //Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
 
   const arrowDown = <i className="fa fa-long-arrow-down" aria-hidden="true"></i>
@@ -115,7 +115,7 @@ const VideosList = () => {
         {(videosData === null || !videosData.length) && currentFilter
         ? <ExampleVideos/> 
         : (currentFilter ?
-          currentVideos.map(video => (
+          currentVideos.map((video: any) => (
             <VideoListItem 
               key={video.id}
               video={video}
@@ -133,7 +133,7 @@ const VideosList = () => {
               currentFilter={currentFilter}
             />
           ))
-          : currentFavourites.map(fav=> (
+          : currentFavourites.map((fav: any)=> (
             <VideoListItem
               key={fav.id}
               title={fav.snippet.title}
@@ -147,6 +147,8 @@ const VideosList = () => {
               display={display}
               date={fav.date}
               currentFilter={currentFilter}
+              addToFavourites={handleAddToFavourites}
+              video={fav}
             />
           ))
           )

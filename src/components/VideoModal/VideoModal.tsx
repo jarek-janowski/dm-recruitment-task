@@ -1,6 +1,13 @@
+
 import { Button, Modal, ModalBody, ModalFooter} from 'reactstrap'
 
-const VideoModal = ({modal, toggleModal, videoId}) => {
+interface Props {
+  modal: boolean,
+  toggleModal: () => void,
+  videoId: string
+}
+
+const VideoModal: React.FC<Props> = ({modal, toggleModal, videoId}) => {
     return (
       <div>
         <Modal isOpen={modal} toggle={toggleModal} size="lg" contentClassName="custom-modal-style">

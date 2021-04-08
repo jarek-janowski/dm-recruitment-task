@@ -1,6 +1,23 @@
+import React from 'react'
 import './VideoListItem.scss'
 
-const VideoListItem = ({
+interface Props {
+  video: any,
+  title: string,
+  thumbnail: string,
+  views: string,
+  likes: string,
+  id: string,
+  onSelect: (id: string) => void,
+  toggleModal: () => void,
+  removeVideo: (id: string) => void,
+  addToFavourites: (video: any) => void,
+  display: boolean,
+  date: string,
+  currentFilter: boolean
+}
+
+const VideoListItem: React.FC<Props> = ({
     video,
     title, 
     thumbnail, 

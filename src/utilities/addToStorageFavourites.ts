@@ -1,5 +1,5 @@
-const addToStorageFavourites = (selectedVideo, setFavourites) => {
-    const arr = JSON.parse(localStorage.getItem('favourites')) || [];
+const addToStorageFavourites = (selectedVideo: any, setFavourites: any) => {
+    const arr = JSON.parse(localStorage.getItem('favourites')!) || [];
     
     const date = (new Date(Date.now()).toLocaleString().split(',')[0])
     
@@ -19,7 +19,7 @@ const addToStorageFavourites = (selectedVideo, setFavourites) => {
         },
     })
     localStorage.setItem('favourites', JSON.stringify(arr))
-    const retrievedObject = localStorage.getItem('favourites')
+    const retrievedObject = localStorage.getItem('favourites')!
     setFavourites(JSON.parse(retrievedObject))
     }
  

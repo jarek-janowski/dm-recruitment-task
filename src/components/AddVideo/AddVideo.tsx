@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { VideosListContext } from '../../contexts/VideosListContext'
 import addToStorageFromYt from '../../utilities/addToStorageFromYt'
 import addToStorageFromVimeo from '../../utilities/addToStorageFromVimeo'
@@ -12,7 +12,7 @@ const AddVideo = () => {
 const [videoLink, setVideoLink] = useState('')
 const [videosData, setVideosData] = useContext(VideosListContext)
 
-const updateVideoLink = (e) => {
+const updateVideoLink = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVideoLink(e.target.value)
 }
 
@@ -20,18 +20,21 @@ const apiKey = process.env.REACT_APP_YT_API_KEY
 const vimeoApiKey = process.env.REACT_APP_VIMEO_API_KEY
 
 
-const mapVideosData = videosData!== null && videosData.map(video =>(
+const mapVideosData = videosData!== null && videosData.map((video: any) => (
   video.id
 ))
 
-const fetchData = (url, addToStorage, setVideosData) => {
+const fetchData = (
+    url: string, 
+    addToStorage: (data: any, setVideosData: any) => any, 
+    setVideosData: any
+  ) => {
   fetch(url)
   .then(res => {
     if(res.ok){
       res.json()
       .then(data => {
         if(data.data !== undefined){
-          
           const includesVimeo = mapVideosData.includes(data.data[0].uri)
           !includesVimeo 
           ? (data.data.length ? addToStorage(data, setVideosData) : alert('wrong link')) 
@@ -48,7 +51,7 @@ const fetchData = (url, addToStorage, setVideosData) => {
   })
 }
 
-const handleAddVideo = (e) => {
+const handleAddVideo = (e: React.FormEvent) => {
   e.preventDefault()
   if(videoLink.includes('vimeo')){
     const url = `https://api.vimeo.com/videos?access_token=${vimeoApiKey}&links=${videoLink}`

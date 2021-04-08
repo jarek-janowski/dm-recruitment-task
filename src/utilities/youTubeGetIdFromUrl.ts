@@ -1,4 +1,4 @@
-function youTubeGetIdFromUrl(url){
+function youTubeGetIdFromUrl(url: any){
     var ID = '';
     url = url.replace(/(>|<)/gi,'').split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
     if(url[2] !== undefined) {
