@@ -6,6 +6,7 @@ them whatever you want 😎
 ## TOOLS
 
 - create-react-app
+- typescript
 - reactstrap
 - React Hooks
 - JS Locale Storage
